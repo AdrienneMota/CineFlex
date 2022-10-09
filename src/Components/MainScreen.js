@@ -8,9 +8,9 @@ export default function MainScreen(){
             <Header>
                 <p>CINEFLEX</p>
             </Header>
-            <SelecionarFilme>
+            {/* <SelecionarFilme>
                 <p>Selecione o filme</p>
-            </SelecionarFilme>
+            </SelecionarFilme> */}
             {/* <FilmsPanel/> */}
             <Sessions/>
         </PageMain>
@@ -19,9 +19,8 @@ export default function MainScreen(){
 
 const PageMain = styled.div`
     width: 375px;
-    height: 877px;
+    height: 100%;
     background-color: #FFEFD5;
-    border: 1px solid #00FF00;
 `
 const Header = styled.div`
     width: 375px;
@@ -39,14 +38,14 @@ const Header = styled.div`
         font-size: 34px;
     }
 `
-const SelecionarFilme = styled.div`
-    width: 374px;
-    height: 110px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 67px;
-    p{
-        font-size: 24px;
-    }
-`
+// const SelecionarFilme = styled.div`
+//     width: 374px;
+//     height: 110px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     margin-top: 67px;
+//     p{
+//         font-size: 24px;
+//     }
+// `
