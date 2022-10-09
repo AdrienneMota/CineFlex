@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import FilmsPanel from "./FilmsPanel";
+import Seats from "./Seats";
 import Sessions from "./Sessions";
 
 export default function MainScreen(){
@@ -12,7 +13,8 @@ export default function MainScreen(){
                 <p>Selecione o filme</p>
             </SelecionarFilme> */}
             {/* <FilmsPanel/> */}
-            <Sessions/>
+            {/* <Sessions/> */}
+            <Seats/>
         </PageMain>
     )
 }

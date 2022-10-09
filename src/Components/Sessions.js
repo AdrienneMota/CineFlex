@@ -7,12 +7,11 @@ export default function Sessions(){
             <SelecionarHorario>
                 <p>Selecione o horário</p>
             </SelecionarHorario>
-            <ConteinerSession>
+            {/* fazer um map aqui */}
+            <ConteinerSession> 
                 <p>Dia da Semana - DD/MM/AAAA</p>
-                <Horario>
-                    <div>15:00</div>
-                    <div>19:00</div>
-                </Horario>
+                <div>15:00</div>
+                <div>19:00</div>
             </ConteinerSession>
             <Footer>
                 <img/>
@@ -35,14 +34,12 @@ const SelecionarHorario = styled.div`
 `
 const ConteinerSession = styled.div`
     font-size: 20px;
-    p{
-        margin-left: 24px;
-    }
-`
-const Horario = styled.div`
     margin-left: 24px;
     width: 375px;
     display: flex;
+    p{
+        margin-left: 24px;
+    }
     div{
         width: 82px;
         height: 43px;
@@ -55,6 +52,9 @@ const Horario = styled.div`
         color: #FFFFFF;
     }
 `
+// const Horario = styled.div`
+    
+// `
 const Footer = styled.div`
     position: fixed;
     bottom: 0;
