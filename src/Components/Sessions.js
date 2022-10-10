@@ -52,9 +52,6 @@ const ConteinerSession = styled.div`
         color: #FFFFFF;
     }
 `
-// const Horario = styled.div`
-    
-// `
 const Footer = styled.div`
     position: fixed;
     bottom: 0;

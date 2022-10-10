@@ -30,14 +30,19 @@ export default function Seats() {
             <Formulario>
                 <form>
                     <label for="Name">Nome</label>
-                    <input type="text"/> <br/>
+                    <input type="text"/> 
+                    <br/>
                     <label for="Name">Cpf</label>
                     <input type="number"/>
                 </form>
+                <button>Reservar assento</button>
             </Formulario>
             <Footer>
                 <img src=""/>
-                <p>Filme escolhido</p>
+                <div>
+                    <p>Filme escolhido</p> 
+                    <p>Quinta-feita - 15:00</p>
+                </div>
             </Footer>
         </>
     )
@@ -68,6 +73,9 @@ const Footer = styled.div`
         height: 72px;
         margin-right: 18px;
         margin-left: 18px;
+    }
+    p{
+        margin-bottom: 8px;
     }
 `
 const ConteinerSeat = styled.div`
@@ -100,4 +108,6 @@ const StatusSeat = styled.div`
 `
 const Formulario = styled.div`
     width: 375px;
+    margin-left: 24px;
+    margin-top: 41px;
 `

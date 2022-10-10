@@ -26,5 +26,6 @@ const ConteinerFilms = styled.div`
         width: 129px;
         height: 193px;
         margin-bottom: 30px;
+        border: 2px solid white;
     }
 `

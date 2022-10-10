@@ -2,6 +2,7 @@ import styled from "styled-components";
 import FilmsPanel from "./FilmsPanel";
 import Seats from "./Seats";
 import Sessions from "./Sessions";
+import Sucess from "./Sucess";
 
 export default function MainScreen(){
     return(
@@ -9,12 +10,13 @@ export default function MainScreen(){
             <Header>
                 <p>CINEFLEX</p>
             </Header>
-            {/* <SelecionarFilme>
+            <SelecionarFilme>
                 <p>Selecione o filme</p>
-            </SelecionarFilme> */}
-            {/* <FilmsPanel/> */}
+            </SelecionarFilme>
+            <FilmsPanel/>
             {/* <Sessions/> */}
-            <Seats/>
+            {/* <Seats/> */}
+            {/* <Sucess/> */}
         </PageMain>
     )
 }
@@ -40,14 +42,14 @@ const Header = styled.div`
         font-size: 34px;
     }
 `
-// const SelecionarFilme = styled.div`
-//     width: 374px;
-//     height: 110px;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     margin-top: 67px;
-//     p{
-//         font-size: 24px;
-//     }
-// `
+const SelecionarFilme = styled.div`
+    width: 374px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 67px;
+    p{
+        font-size: 24px;
+    }
+`
