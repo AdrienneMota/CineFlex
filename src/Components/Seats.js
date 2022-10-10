@@ -3,7 +3,7 @@ import selecionado from "../assets/img/selecionado.png";
 import disponivel from "../assets/img/disponivel.png";
 import indisponivel from "../assets/img/indisponivel.png";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Seat from "./Seat";
 
@@ -14,13 +14,19 @@ export default function Seats() {
     const [nameSeat, SetNameseat] = useState([])
     const [nameClient, setNameclient] = useState("")
     const [cpf, setCpf] = useState("")
+    const [title, setTitle] = useState("")
+    const [day, setDay] = useState("")
+    const [time, setTime] = useState("")
+    const navegate = useNavigate()
 
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionId}/seats`)
 
         promisse.then((res) => {
             setSeats(res.data)
-            console.log(seat)
+            setTitle(res.data.movie.title)
+            setDay(res.data.day.date)
+            setTime(res.data.name)
         })
 
         promisse.catch((error) => {
@@ -31,7 +37,8 @@ export default function Seats() {
 
     function SubmitForm(e){
         e.preventDefault()
-        
+
+
         const body = {
             ids: places,
             name: nameClient,
@@ -42,7 +49,11 @@ export default function Seats() {
 
         const promisse = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body)
         
-        promisse.then(() => console.log('deu certo') )
+        promisse.then(() => {
+            navegate("/sucess", {state: nameClient, cpf, title, time, day, nameSeat}) 
+        })
+
+        
     }
 
     return (
@@ -90,14 +101,14 @@ export default function Seats() {
                         value={cpf}
                         required    
                     />
+                    <button>Reservar assento</button>
                 </form>
-                <button>Reservar assento</button>
             </InfostoBuy>
             <Footer>
                 <img src={seat?.movie?.posterURL} alt="img do filme" />
                 <div>
                     <p>{seat?.movie?.title}</p>
-                    <p>{seat?.day?.weekday} - {seat?.day?.date}</p>
+                    <p>{seat?.day?.weekday} - {seat?.name}</p>
                 </div>
             </Footer>
         </>

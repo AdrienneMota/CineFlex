@@ -1,6 +1,9 @@
+import { useLocation } from "react-router-dom"
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 export default function Sucess(){
+    const {nameClient, cpf, title, time, day, nameSeat} = useLocation().state
     return(
         <>
         <SucessMsg>
@@ -9,22 +12,24 @@ export default function Sucess(){
         <DefaultSucess>
             <div>
                 <p>Filme e Sessão</p>
-                <p>Filme escolhido</p>
-                <p>DD/MM/AAAA 00:00</p>
+                <p>{title}</p>
+                <p>{day} - {time}</p>
             </div>
             <div>
                 <p>Ingressos</p>
-                <p>Assento 00</p>
+                {nameSeat?.map((s, i) => (
+                    <p key={i}>Assento {s}</p>
+                ))}
             </div>
             <div>
                 <p>Comprador</p>
-                <p>Nome: </p>
-                <p>Cpf: </p>
+                <p >Nome: {nameClient}</p>
+                <p >CPF: {cpf}</p>
             </div>            
         </DefaultSucess>
-        <Button>
-            Volta para home 
-        </Button>
+        <Link to="/">
+                <button>Voltar para o início</button>
+        </Link>
         </>
     )
 }
@@ -51,7 +56,4 @@ const DefaultSucess = styled.p`
     p{
         margin-bottom: 8px;
     }
-`
-const Button = styled.button`
-
 `
