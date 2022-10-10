@@ -28,7 +28,7 @@ export default function Sucess(){
             </div>            
         </DefaultSucess>
         <Link to="/">
-                <button>Voltar para o início</button>
+            <Button>Voltar para o início</Button>
         </Link>
         </>
     )
@@ -46,7 +46,7 @@ const SucessMsg = styled.div`
         font-size: 24px;
     }
 `
-const DefaultSucess = styled.p`
+const DefaultSucess = styled.div`
     margin-left: 28px;
     font-size: 22px;
     div{
@@ -54,6 +54,16 @@ const DefaultSucess = styled.p`
         height: 110px;
     }
     p{
-        margin-bottom: 8px;
+        margin: 8px;
     }
+`
+const Button = styled.button`
+        width: 225px;
+        height: 42px;
+        color: white;
+        background-color: #E8833A;
+        border: none;
+        margin-left: 70px;
+        margin-top: 15px;
+        font-size: 18px;
 `

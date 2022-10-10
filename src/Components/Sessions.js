@@ -22,7 +22,7 @@ export default function Sessions() {
     }, [])
 
     return (
-        <>
+        <Conteiner>
             <SelectTime>
                 <p>Selecione o horário</p>
             </SelectTime>
@@ -30,6 +30,7 @@ export default function Sessions() {
                     film?.days?.map((d) => 
                     <ConteinerSession key={d.id}>
                     <div className="weekday">{d.weekday} - {d.date}</div>
+                    <div className="containertime">
                     {
                         d.showtimes.map((t)=>
                             <Link to={`/seats/${t.id}`}>
@@ -37,16 +38,21 @@ export default function Sessions() {
                             </Link>
                         )
                     }
+                    </div>
                     </ConteinerSession>
                 )} 
             <Footer>
                 <img src={film.posterURL} alt="imagem do filme" />
                 <p>{film.title}</p>
             </Footer>
-        </>
+        </Conteiner>
     )
 }
 
+const Conteiner = styled.div`
+    width: 375px;
+    margin-bottom: 125px;
+`
 const SelectTime = styled.div`
     width: 374px;
     height: 110px;
@@ -61,7 +67,11 @@ const SelectTime = styled.div`
 const ConteinerSession = styled.div`
     font-size: 20px;
     margin-left: 24px;
-    width: 375px;
+    width: 375px; 
+    .containertime{
+        display: flex;
+        margin-bottom: 15px;
+    }
     .weekday{
         font-size: 20px;
     }
@@ -81,7 +91,7 @@ const Footer = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 375px;
+    width: 100%;
     height: 117px;
     display: flex;
     align-items: center;

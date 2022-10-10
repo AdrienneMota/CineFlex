@@ -9,7 +9,7 @@ export default function Header(){
 }
 
 const NameApp = styled.div`
-    width: 375px;
+    width: 100%;
     height: 67px;
     position: fixed;
     top: 0;

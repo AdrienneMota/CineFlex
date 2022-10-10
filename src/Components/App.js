@@ -27,5 +27,5 @@ export default function App() {
 const PageMain = styled.div`
     width: 375px;
     height: 100%;
-    background-color: #FFEFD5;
+    background-color: white;
 `

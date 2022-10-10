@@ -50,7 +50,7 @@ export default function Seats() {
         const promisse = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body)
         
         promisse.then(() => {
-            navegate("/sucess", {state: nameClient, cpf, title, time, day, nameSeat}) 
+            navegate("/sucess", {state: {nameClient, cpf, title, time, day, nameSeat}}) 
         })
 
         
@@ -87,20 +87,23 @@ export default function Seats() {
             <InfostoBuy>
                 <form onSubmit={SubmitForm}>
                     <label htmlFor="Name">Nome</label>
+                    <br/>
                     <input 
                         type="text" 
                         onChange={(e) => setNameclient(e.target.value)}
                         value={nameClient}
                         required
                     />
-                    <br />
+                    <br/>
                     <label htmlFor="Name">Cpf</label>
+                    <br/>
                     <input 
                         type="text" 
                         onChange={(e) => setCpf(e.target.value)}
                         value={cpf}
                         required    
                     />
+                    <br/>
                     <button>Reservar assento</button>
                 </form>
             </InfostoBuy>
@@ -127,8 +130,9 @@ const SelectSeat = styled.div`
     }
 `
 const ConteinerSeat = styled.div`
-    border: 1px solid green;
-    margin: 0px 24px 16px 24px;
+    /* border: 1px solid green; */
+    margin-left: 24px;
+    margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;    
 `
@@ -151,15 +155,33 @@ const StatusSeat = styled.div`
     }
 `
 const InfostoBuy = styled.div`
-    width: 375px;
+    width: 100%;
     margin-left: 24px;
     margin-top: 41px;
+    margin-bottom: 200px;
+    font-size: 18px;
+    input{
+        width: 327px;
+        height: 45px;
+        margin: 15px;
+        border: 1px solid #AFAFAF;
+    }
+    button{
+        width: 225px;
+        height: 42px;
+        color: white;
+        background-color: #E8833A;
+        border: none;
+        margin-left: 70px;
+        margin-top: 15px;
+        font-size: 18px;
+    }
 `
 const Footer = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 375px;
+    width: 100%;
     height: 117px;
     display: flex;
     align-items: center;
