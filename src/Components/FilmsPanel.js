@@ -44,7 +44,7 @@ export default function FilmsPanel() {
                 <p>Selecione o filme</p>
             </SelectFilm>
             <ConteinerFilms>
-                {films.map(
+                {films?.map(
                     (f) => <Film key={f.id} film={f} />
                 )}
             </ConteinerFilms>

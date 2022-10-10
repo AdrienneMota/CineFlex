@@ -5,14 +5,19 @@ import indisponivel from "../assets/img/indisponivel.png";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Seat from "./Seat";
 
 export default function Seats() {
     const [seat, setSeats] = useState({})
-    const {sessionId} = useParams()
+    const { sessionId } = useParams()
+    const [places, SetPlaces] = useState([])
+    const [nameSeat, SetNameseat] = useState([])
+    const [nameClient, setNameclient] = useState("")
+    const [cpf, setCpf] = useState("")
 
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionId}/seats`)
-        
+
         promisse.then((res) => {
             setSeats(res.data)
             console.log(seat)
@@ -23,46 +28,76 @@ export default function Seats() {
         })
 
     }, [])
-    
+
+    function SubmitForm(e){
+        e.preventDefault()
+        
+        const body = {
+            ids: places,
+            name: nameClient,
+            cpf
+        }
+
+        console.log(body)
+
+        const promisse = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body)
+        
+        promisse.then(() => console.log('deu certo') )
+    }
+
     return (
         <>
             <SelectSeat>
                 <p>Selecione o(s) assentos</p>
             </SelectSeat>
-            {/* {
-                seat.seats.map((s) => <ConteinerSeat> 
-                <button>{s.id}</button>     
-            </ConteinerSeat>)
-            } */}
+            <ConteinerSeat>
+                {
+                    seat?.seats?.map((s) => 
+                        <>
+                            <Seat key={s.id} name={s.name} free={s.isAvailable} places={places} SetPlaces={SetPlaces} id={s.id} nameSeat={nameSeat} SetNameseat={SetNameseat}/>
+                        </>                        
+                    )
+                }
+            </ConteinerSeat>
             <StatusSeat>
                 <div>
-                    <img src={selecionado}/>
+                    <img src={selecionado} />
                     <p>Selecionado</p>
                 </div>
                 <div>
-                    <img src={disponivel}/>
+                    <img src={disponivel} />
                     <p>Disponível</p>
                 </div>
                 <div>
-                    <img src={indisponivel}/>
-                    <p>Indisponível</p>    
+                    <img src={indisponivel} />
+                    <p>Indisponível</p>
                 </div>
             </StatusSeat>
-            <Formulario>
-                <form>
-                    <label for="Name">Nome</label>
-                    <input type="text"/> 
-                    <br/>
-                    <label for="Name">Cpf</label>
-                    <input type="number"/>
+            <InfostoBuy>
+                <form onSubmit={SubmitForm}>
+                    <label htmlFor="Name">Nome</label>
+                    <input 
+                        type="text" 
+                        onChange={(e) => setNameclient(e.target.value)}
+                        value={nameClient}
+                        required
+                    />
+                    <br />
+                    <label htmlFor="Name">Cpf</label>
+                    <input 
+                        type="text" 
+                        onChange={(e) => setCpf(e.target.value)}
+                        value={cpf}
+                        required    
+                    />
                 </form>
                 <button>Reservar assento</button>
-            </Formulario>
+            </InfostoBuy>
             <Footer>
-                <img src={seat.movie.posterURL} alt="img do filme"/>
+                <img src={seat?.movie?.posterURL} alt="img do filme" />
                 <div>
-                    <p>{seat.movie.title}</p> 
-                    <p>{seat.day.weekday} - {seat.day.date}</p>
+                    <p>{seat?.movie?.title}</p>
+                    <p>{seat?.day?.weekday} - {seat?.day?.date}</p>
                 </div>
             </Footer>
         </>
@@ -80,36 +115,11 @@ const SelectSeat = styled.div`
         font-size: 24px;
     }
 `
-const Footer = styled.div`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 375px;
-    height: 117px;
-    display: flex;
-    align-items: center;
-    background-color: #DFE6ED;
-    img{        
-        width: 48px;
-        height: 72px;
-        margin-right: 18px;
-        margin-left: 18px;
-    }
-    p{
-        margin-bottom: 8px;
-    }
-`
 const ConteinerSeat = styled.div`
     border: 1px solid green;
     margin: 0px 24px 16px 24px;
     display: flex;
-    flex-wrap: wrap;
-    button{
-        width: 26px;
-        height: 26px;
-        border-radius: 100%;
-        margin-right: 8px;
-    }    
+    flex-wrap: wrap;    
 `
 const StatusSeat = styled.div`
     display: flex;
@@ -129,8 +139,27 @@ const StatusSeat = styled.div`
         /* border-radius: 100%; */
     }
 `
-const Formulario = styled.div`
+const InfostoBuy = styled.div`
     width: 375px;
     margin-left: 24px;
     margin-top: 41px;
+`
+const Footer = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 375px;
+    height: 117px;
+    display: flex;
+    align-items: center;
+    background-color: #DFE6ED;
+    img{        
+        width: 48px;
+        height: 72px;
+        margin-right: 18px;
+        margin-left: 18px;
+    }
+    p{
+        margin-bottom: 8px;
+    }
 `

@@ -11,11 +11,12 @@ export default function Sessions() {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${filmId}/showtimes`)
 
         promisse.then((res) => {
+            console.log(res)
             setFilm(res.data)
-            console.log(film.days)
         })
 
         promisse.catch((error) => {
+            console(error)
             console.log(error.response.data)
         })
     }, [])
@@ -26,7 +27,7 @@ export default function Sessions() {
                 <p>Selecione o horário</p>
             </SelectTime>
                 {
-                    film.days.map((d) => 
+                    film?.days?.map((d) => 
                     <ConteinerSession key={d.id}>
                     <div className="weekday">{d.weekday} - {d.date}</div>
                     {
@@ -34,7 +35,6 @@ export default function Sessions() {
                             <Link to={`/seats/${t.id}`}>
                                 <div className="times">{t.name}</div>
                             </Link>
-                        
                         )
                     }
                     </ConteinerSession>
