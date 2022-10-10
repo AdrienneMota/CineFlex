@@ -1,27 +1,53 @@
-import ListFilms from "../mock/Films";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-export default function Sessions(){
-    return(
+export default function Sessions() {
+    const [film, setFilm] = useState({})
+    const { filmId } = useParams()
+
+    useEffect(() => {
+        const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${filmId}/showtimes`)
+
+        promisse.then((res) => {
+            setFilm(res.data)
+            console.log(film.days)
+        })
+
+        promisse.catch((error) => {
+            console.log(error.response.data)
+        })
+    }, [])
+
+    return (
         <>
-            <SelecionarHorario>
+            <SelectTime>
                 <p>Selecione o horário</p>
-            </SelecionarHorario>
-            {/* fazer um map aqui */}
-            <ConteinerSession> 
-                <p>Dia da Semana - DD/MM/AAAA</p>
-                <div>15:00</div>
-                <div>19:00</div>
-            </ConteinerSession>
+            </SelectTime>
+                {
+                    film.days.map((d) => 
+                    <ConteinerSession key={d.id}>
+                    <div className="weekday">{d.weekday} - {d.date}</div>
+                    {
+                        d.showtimes.map((t)=>
+                            <Link to={`/seats/${t.id}`}>
+                                <div className="times">{t.name}</div>
+                            </Link>
+                        
+                        )
+                    }
+                    </ConteinerSession>
+                )} 
             <Footer>
-                <img/>
-                <p>Filme escolhido</p>
+                <img src={film.posterURL} alt="imagem do filme" />
+                <p>{film.title}</p>
             </Footer>
         </>
     )
 }
 
-const SelecionarHorario = styled.div`
+const SelectTime = styled.div`
     width: 374px;
     height: 110px;
     display: flex;
@@ -36,11 +62,10 @@ const ConteinerSession = styled.div`
     font-size: 20px;
     margin-left: 24px;
     width: 375px;
-    display: flex;
-    p{
-        margin-left: 24px;
+    .weekday{
+        font-size: 20px;
     }
-    div{
+    .times{
         width: 82px;
         height: 43px;
         background-color: #E8833A;
@@ -68,3 +93,4 @@ const Footer = styled.div`
         margin-left: 18px;
     }
 `
+

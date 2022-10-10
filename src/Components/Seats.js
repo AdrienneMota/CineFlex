@@ -1,18 +1,39 @@
-import ListFilms from "../mock/Films";
 import styled from "styled-components";
 import selecionado from "../assets/img/selecionado.png";
 import disponivel from "../assets/img/disponivel.png";
 import indisponivel from "../assets/img/indisponivel.png";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function Seats() {
+    const [seat, setSeats] = useState({})
+    const {sessionId} = useParams()
+
+    useEffect(() => {
+        const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionId}/seats`)
+        
+        promisse.then((res) => {
+            setSeats(res.data)
+            console.log(seat)
+        })
+
+        promisse.catch((error) => {
+            console.log(error.response.data)
+        })
+
+    }, [])
+    
     return (
         <>
             <SelectSeat>
                 <p>Selecione o(s) assentos</p>
             </SelectSeat>
-            <ConteinerSeat> 
-                <button>1</button>     
-            </ConteinerSeat>
+            {/* {
+                seat.seats.map((s) => <ConteinerSeat> 
+                <button>{s.id}</button>     
+            </ConteinerSeat>)
+            } */}
             <StatusSeat>
                 <div>
                     <img src={selecionado}/>
@@ -38,10 +59,10 @@ export default function Seats() {
                 <button>Reservar assento</button>
             </Formulario>
             <Footer>
-                <img src=""/>
+                <img src={seat.movie.posterURL} alt="img do filme"/>
                 <div>
-                    <p>Filme escolhido</p> 
-                    <p>Quinta-feita - 15:00</p>
+                    <p>{seat.movie.title}</p> 
+                    <p>{seat.day.weekday} - {seat.day.date}</p>
                 </div>
             </Footer>
         </>
@@ -81,6 +102,8 @@ const Footer = styled.div`
 const ConteinerSeat = styled.div`
     border: 1px solid green;
     margin: 0px 24px 16px 24px;
+    display: flex;
+    flex-wrap: wrap;
     button{
         width: 26px;
         height: 26px;

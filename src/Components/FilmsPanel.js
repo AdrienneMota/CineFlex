@@ -3,18 +3,19 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 
-function Film({ img }) {
+function Film({film}) {
     return (
-        <img src={img} alt="film's image" />
+        <Link to={`/sessions/${film.id}`}>
+            <img src={film.posterURL} alt="film's image" />
+        </Link>
     )
 }
 
 export default function FilmsPanel() {
-
     const [films, setFilms] = useState(undefined)
     const [error, setError] = useState(false)
 
-    useEffect( ()=> {
+    useEffect(() => {
         const url = "https://mock-api.driven.com.br/api/v5/cineflex/movies"
         const promisse = axios.get(url)
 
@@ -27,13 +28,13 @@ export default function FilmsPanel() {
             setError(true)
         })
 
-        }, []
+    }, []
     )
 
-    if(error){
+    if (error) {
         return <div>Erro na requisição! Tente de novo</div>
     }
-    if(!error && films === undefined){
+    if (!error && films === undefined) {
         return <div>Carregando</div>
     }
 
@@ -42,13 +43,11 @@ export default function FilmsPanel() {
             <SelectFilm>
                 <p>Selecione o filme</p>
             </SelectFilm>
-                <Link to="./sessions">
-                    <ConteinerFilms>
-                        {films.map(
-                            (f) => <Film key={f.id} img={f.posterURL} />
-                        )}
-                    </ConteinerFilms>
-                </Link>
+            <ConteinerFilms>
+                {films.map(
+                    (f) => <Film key={f.id} film={f} />
+                )}
+            </ConteinerFilms>
         </>
     )
 }
